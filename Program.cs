@@ -1,5 +1,7 @@
-using Bangazon_ECommerce_ServerSide;
+using Bangazon_ECommerce_ServerSide.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
