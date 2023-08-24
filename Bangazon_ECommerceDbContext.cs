@@ -39,11 +39,11 @@ namespace Bangazon_ECommerce_ServerSide
 
             modelBuilder.Entity<Seller>().HasData(new Seller[]
             {
-                new Seller {Id = 1, Name = "", Email = "", PhoneNumber = 4269837342, PaymentType_Id = 2, imageUrl = ""},
-                new Seller {Id = 2, Name = "", Email = "", PhoneNumber = 4269837342, PaymentType_Id = 2, imageUrl = ""},
-                new Seller {Id = 3, Name = "", Email = "", PhoneNumber = 4269837342, PaymentType_Id = 2, imageUrl = ""},
-                new Seller {Id = 4, Name = "", Email = "", PhoneNumber = 4269837342, PaymentType_Id = 2, imageUrl = ""},
-                new Seller {Id = 5, Name = "", Email = "", PhoneNumber = 4269837342, PaymentType_Id = 2, imageUrl = ""},
+                new Seller {Id = 1, Name = "James Moore", Email = "james.moore@outlook.com", PhoneNumber = 5559012345, PaymentType_Id = 1, imageUrl = "https://images.squarespace-cdn.com/content/v1/5cf0d08d5fc69d000172462a/1602248693535-KTGCFTA50807510I5LVN/Tom+LinkedIn+Headshot+Profile+Picture.jpg?format=750w"},
+                new Seller {Id = 2, Name = "Olivia Taylor", Email = "olivia.taylor@gmail.com", PhoneNumber = 6460123456, PaymentType_Id = 1, imageUrl = "https://writestylesonline.com/wp-content/uploads/2019/01/What-To-Wear-For-Your-Professional-Profile-Picture-or-Headshot.jpg"},
+                new Seller {Id = 3, Name = "Emma Wilson", Email = "emma.wilson@hotmail.com", PhoneNumber = 8888901234, PaymentType_Id = 2, imageUrl = "https://images.unsplash.com/photo-1573496358961-3c82861ab8f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2488&q=80"},
+                new Seller {Id = 4, Name = "Michael Williams", Email = "michael.williams@hotmail.com", PhoneNumber = 7773456789, PaymentType_Id = 3, imageUrl = "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2487&q=80"},
+                new Seller {Id = 5, Name = "Robert Miller", Email = "robert.miller@yahoo.com", PhoneNumber = 7777890123, PaymentType_Id = 4, imageUrl = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2487&q=80"},
             });
 
             modelBuilder.Entity<PaymentType>().HasData(new PaymentType[]
@@ -63,9 +63,17 @@ namespace Bangazon_ECommerce_ServerSide
                 new Category {Id = 5, Name = "Electric" },
                 new Category {Id = 6, Name = "Homemade" },
             });
+
+            modelBuilder.Entity<OrderStatus>().HasData(new OrderStatus[]
+            {
+                new OrderStatus {Id = 1, Name = "Open"},
+                new OrderStatus {Id = 2, Name = "Closed"},
+                new OrderStatus {Id = 3, Name = "Paused"},
+            });
+
             modelBuilder.Entity<Order>().HasData(new Order[]
             {
-                new Order {Id = 1, CustomerId = 1, SellerId = 1, ProductId = 1, OrderStatusId = 1, DatePurchased = new DateTime(2023, 1, 1), StatusUpdateDate = new DateTime(2023,1,1) }
+                new Order {Id = 1, CustomerId = 1, SellerId = 2, ProductId = 4, OrderStatusId = 1, DatePurchased = new DateTime(2023, 1, 1), StatusUpdateDate = new DateTime(2023,1,1) },
             });
 
         }
