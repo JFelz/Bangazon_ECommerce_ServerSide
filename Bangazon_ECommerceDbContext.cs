@@ -1,5 +1,7 @@
-﻿using Bangazon_ECommerce_ServerSide.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Bangazon_ECommerce_ServerSide.Models;
+using System.Collections.Generic;
+using System;
 
 
 namespace Bangazon_ECommerce_ServerSide
