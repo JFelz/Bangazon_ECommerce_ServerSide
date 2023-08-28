@@ -81,33 +81,33 @@ namespace Bangazon_ECommerce_ServerSide
 
             modelBuilder.Entity<SellerPaymentType>().HasData(new SellerPaymentType[]
             {
-                new SellerPaymentType {SellerId = 1, PaymentType_Id = 1},
-                new SellerPaymentType {SellerId = 2, PaymentType_Id = 1},
-                new SellerPaymentType {SellerId = 3, PaymentType_Id = 2},
-                new SellerPaymentType {SellerId = 4, PaymentType_Id = 3},
-                new SellerPaymentType {SellerId = 5, PaymentType_Id = 4},
+                new SellerPaymentType {Id = 1, SellerId = 1, PaymentType_Id = 1},
+                new SellerPaymentType {Id = 2, SellerId = 2, PaymentType_Id = 1},
+                new SellerPaymentType {Id = 3, SellerId = 3, PaymentType_Id = 2},
+                new SellerPaymentType {Id = 4, SellerId = 4, PaymentType_Id = 3},
+                new SellerPaymentType {Id = 5, SellerId = 5, PaymentType_Id = 4},
             });
             modelBuilder.Entity<CustomerPaymentType>().HasData(new CustomerPaymentType[]
             {
-                new CustomerPaymentType {CustomerId = 1, PaymentType_Id = 1},
-                new CustomerPaymentType {CustomerId = 2, PaymentType_Id = 2},
-                new CustomerPaymentType {CustomerId = 3, PaymentType_Id = 4},
-                new CustomerPaymentType {CustomerId = 4, PaymentType_Id = 2},
+                new CustomerPaymentType {Id = 1, CustomerId = 1, PaymentType_Id = 1},
+                new CustomerPaymentType {Id = 2, CustomerId = 2, PaymentType_Id = 2},
+                new CustomerPaymentType {Id = 3, CustomerId = 3, PaymentType_Id = 4},
+                new CustomerPaymentType {Id = 4, CustomerId = 4, PaymentType_Id = 2},
             });
             modelBuilder.Entity<CustomerProduct>().HasData(new CustomerProduct[]
             {
-                new CustomerProduct {ProductId = 4, CustomerId = 1,},
-                new CustomerProduct {ProductId = 2, CustomerId = 2,},
+                new CustomerProduct {Id = 1, ProductId = 4, CustomerId = 1,},
+                new CustomerProduct {Id = 2, ProductId = 2, CustomerId = 2,},
             });
             modelBuilder.Entity<SellerOrder>().HasData(new SellerOrder[]
             {
-                new SellerOrder { OrderId = 1, SellerId = 2},
-                new SellerOrder { OrderId = 2, SellerId = 1},
+                new SellerOrder {Id = 1, OrderId = 1, SellerId = 2},
+                new SellerOrder {Id = 2, OrderId = 2, SellerId = 1},
             });
             modelBuilder.Entity<ProductOrder>().HasData(new ProductOrder[]
             {
-                new ProductOrder { OrderId = 1, ProductId = 4,},
-                new ProductOrder { OrderId = 2, ProductId = 2,},
+                new ProductOrder {Id = 1, OrderId = 1, ProductId = 4,},
+                new ProductOrder {Id = 2, OrderId = 2, ProductId = 2,},
             });
         }
     }
