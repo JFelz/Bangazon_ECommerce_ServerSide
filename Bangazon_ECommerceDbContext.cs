@@ -76,11 +76,38 @@ namespace Bangazon_ECommerce_ServerSide
             modelBuilder.Entity<Order>().HasData(new Order[]
             {
                 new Order {Id = 1, CustomerId = 1, SellerId = 2, ProductId = 4, OrderStatusId = 1, DatePurchased = new DateTime(2023, 1, 1), StatusUpdateDate = new DateTime(2023,1,1) },
+                new Order {Id = 2, CustomerId = 2, SellerId = 1, ProductId = 2, OrderStatusId = 1, DatePurchased = new DateTime(2023, 1, 1), StatusUpdateDate = new DateTime(2023,1,1) },
             });
 
             modelBuilder.Entity<SellerPaymentType>().HasData(new SellerPaymentType[]
             {
-                new SellerPaymentType {SellerId = 1, PaymentType_Id = 3},
+                new SellerPaymentType {SellerId = 1, PaymentType_Id = 1},
+                new SellerPaymentType {SellerId = 2, PaymentType_Id = 1},
+                new SellerPaymentType {SellerId = 3, PaymentType_Id = 2},
+                new SellerPaymentType {SellerId = 4, PaymentType_Id = 3},
+                new SellerPaymentType {SellerId = 5, PaymentType_Id = 4},
+            });
+            modelBuilder.Entity<CustomerPaymentType>().HasData(new CustomerPaymentType[]
+            {
+                new CustomerPaymentType {CustomerId = 1, PaymentType_Id = 1},
+                new CustomerPaymentType {CustomerId = 2, PaymentType_Id = 2},
+                new CustomerPaymentType {CustomerId = 3, PaymentType_Id = 4},
+                new CustomerPaymentType {CustomerId = 4, PaymentType_Id = 2},
+            });
+            modelBuilder.Entity<CustomerProduct>().HasData(new CustomerProduct[]
+            {
+                new CustomerProduct {ProductId = 4, CustomerId = 1,},
+                new CustomerProduct {ProductId = 2, CustomerId = 2,},
+            });
+            modelBuilder.Entity<SellerOrder>().HasData(new SellerOrder[]
+            {
+                new SellerOrder { OrderId = 1, SellerId = 2},
+                new SellerOrder { OrderId = 2, SellerId = 1},
+            });
+            modelBuilder.Entity<ProductOrder>().HasData(new ProductOrder[]
+            {
+                new ProductOrder { OrderId = 1, ProductId = 4,},
+                new ProductOrder { OrderId = 2, ProductId = 2,},
             });
         }
     }
