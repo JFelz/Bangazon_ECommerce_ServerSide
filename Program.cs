@@ -40,4 +40,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
+app.MapGet("/products", (Bangazon_ECommerceDbContext db) =>
+{
+    return db.Products.ToList();
+});
+
 app.Run();
