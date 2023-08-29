@@ -89,5 +89,41 @@ app.MapPut("/products/update/{ProductId}", (Bangazon_ECommerceDbContext db, int 
     return Results.NoContent();
 });
 
+app.MapGet("/payments", (Bangazon_ECommerceDbContext db) =>
+{
+    return db.PaymentTypes.ToList();
+});
+
+app.MapDelete("/payments/{payId}", ( Bangazon_ECommerceDbContext db, int payId) =>
+{
+    PaymentType deleteType = db.PaymentTypes.FirstOrDefault(pt => pt.Id == payId);
+    if ( deleteType == null )
+    {
+        return Results.NotFound();
+    }
+    db.PaymentTypes.Remove(deleteType);
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
+app.MapPost("/payment", ( Bangazon_ECommerceDbContext db, int payId, PaymentType paymentTypes ) =>
+{
+    db.PaymentTypes.Add(paymentTypes);
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
+app.MapPut("/payment/{payId}", (Bangazon_ECommerceDbContext db, int payId, PaymentType paymentTypes ) =>
+{
+    PaymentType updateType = db.PaymentTypes.FirstOrDefault( pt => pt.Id == payId);
+    if ( updateType == null )
+    {
+        return Results.NotFound();
+    }
+
+    updateType.Name = paymentTypes.Name;
+    db.SaveChanges();
+    return Results.NoContent();
+});
 
 app.Run();
