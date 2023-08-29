@@ -46,4 +46,17 @@ app.MapGet("/products", (Bangazon_ECommerceDbContext db) =>
     return db.Products.ToList();
 });
 
+app.MapDelete("/products/{ProductId}", (Bangazon_ECommerceDbContext db, int ProductId) =>
+{
+    Product deleteProduct = db.Products.FirstOrDefault( c => c.Id == ProductId );
+    if ( deleteProduct == null)
+    {
+        return Results.NotFound();
+    }
+
+    db.Products.Remove(deleteProduct);
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
 app.Run();
