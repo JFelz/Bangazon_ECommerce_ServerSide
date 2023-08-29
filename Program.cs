@@ -59,4 +59,35 @@ app.MapDelete("/products/{ProductId}", (Bangazon_ECommerceDbContext db, int Prod
     return Results.NoContent();
 });
 
+app.MapPost("/products", (Bangazon_ECommerceDbContext db, Product products) =>
+{
+    db.Products.Add(products);
+    db.SaveChanges();
+    return Results.Created($"/products/{products.Id}", products);
+});
+
+//Get single product
+app.MapGet("/products/{ProductId}", (Bangazon_ECommerceDbContext db, int ProductId) =>
+{
+    return db.Products.First( c => c.Id == ProductId );
+});
+
+app.MapPut("/products/update/{ProductId}", (Bangazon_ECommerceDbContext db, int ProductId, Product products) =>
+{
+    Product PatchProducts = db.Products.First(c => c.Id == ProductId);
+    if ( PatchProducts == null )
+    {
+        return Results.NotFound();
+    }
+    PatchProducts.Name = products.Name;
+    PatchProducts.Description = products.Description;
+    PatchProducts.imageUrl = products.imageUrl;
+    PatchProducts.price = products.price;
+    PatchProducts.isSoldOut = products.isSoldOut;
+
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
+
 app.Run();
