@@ -94,9 +94,9 @@ app.MapGet("/payments", (Bangazon_ECommerceDbContext db) =>
     return db.PaymentTypes.ToList();
 });
 
-app.MapDelete("/payments/{payId}", ( Bangazon_ECommerceDbContext db, int payId) =>
+app.MapDelete("/payments/{payName}", ( Bangazon_ECommerceDbContext db, string payName) =>
 {
-    PaymentType deleteType = db.PaymentTypes.FirstOrDefault(pt => pt.Id == payId);
+    PaymentType deleteType = db.PaymentTypes.FirstOrDefault(pt => pt.Name.ToLower() == payName.ToLower()); 
     if ( deleteType == null )
     {
         return Results.NotFound();
@@ -106,9 +106,10 @@ app.MapDelete("/payments/{payId}", ( Bangazon_ECommerceDbContext db, int payId) 
     return Results.NoContent();
 });
 
-app.MapPost("/payment", ( Bangazon_ECommerceDbContext db, int payId, PaymentType paymentTypes ) =>
+app.MapPost("/payment", ( Bangazon_ECommerceDbContext db, PaymentType paymentTypes ) =>
 {
-    db.PaymentTypes.Add(paymentTypes);
+    var updatePType = paymentTypes;
+    db.PaymentTypes.Add(updatePType);
     db.SaveChanges();
     return Results.NoContent();
 });
@@ -125,5 +126,58 @@ app.MapPut("/payment/{payId}", (Bangazon_ECommerceDbContext db, int payId, Payme
     db.SaveChanges();
     return Results.NoContent();
 });
+
+//Shows all the info within the order once retrieved.
+app.MapGet("/orders", (Bangazon_ECommerceDbContext db) =>
+{
+    return db.Orders
+        .Include(o => o.customer)
+        .Include(o => o.seller)
+        .Include(p => p.product)
+        .Include(os => os.status)
+        .ToList();
+});
+
+app.MapGet("/orders/customer/{customerId}/", (Bangazon_ECommerceDbContext db, int customerId) =>
+{
+    return db.Orders.Where(o => o.CustomerId == customerId)
+        .Include(o => o.customer)
+        .Include(o => o.seller)
+        .Include(p => p.product)
+        .Include(os => os.status)
+        .ToList();
+});
+
+app.MapPost("/orders", ( Bangazon_ECommerceDbContext db, Order orders) =>
+{
+
+    Order NewOrder = new Order();
+    {
+        //How to push a product object into a new Order object.
+    }
+
+});
+
+app.MapDelete("/orders/{OrderId}/remove", (Bangazon_ECommerceDbContext db, int OrderId) =>
+{
+    Order deleteOrder = db.Orders.FirstOrDefault(o => o.Id == OrderId);
+    db.Orders.Remove(deleteOrder);
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
+//Gets all the Orders that a customer bought from specific seller
+app.MapGet("/orders/seller/{uid}", (Bangazon_ECommerceDbContext db, int uid) =>
+{
+    return db.Orders.Where(o => o.SellerId == uid)
+        .Include(o => o.customer)
+        .Include(p => p.product)
+        .Include(os => os.status)
+        .OrderBy(x => x.DatePurchased)
+        .OrderBy(y => y.StatusUpdateDate)
+        .ToList();
+});
+
+
 
 app.Run();
