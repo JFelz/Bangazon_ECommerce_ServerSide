@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
 using Bangazon_ECommerce_ServerSide;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +62,10 @@ app.MapDelete("/products/{ProductId}", (Bangazon_ECommerceDbContext db, int Prod
 
 app.MapPost("/products", (Bangazon_ECommerceDbContext db, Product products) =>
 {
+/*    Product newProducts = new Product();
+    {
+       
+    }*/
     db.Products.Add(products);
     db.SaveChanges();
     return Results.Created($"/products/{products.Id}", products);
@@ -144,7 +149,7 @@ app.MapGet("/orders/customer/{customerId}/", (Bangazon_ECommerceDbContext db, in
         .Include(o => o.customer)
         .Include(o => o.seller)
         .Include(p => p.product)
-        .Include(os => os.status)
+        .Include(o => o.status)
         .ToList();
 });
 
@@ -178,6 +183,21 @@ app.MapGet("/orders/seller/{uid}", (Bangazon_ECommerceDbContext db, int uid) =>
         .ToList();
 });
 
+app.MapGet("/categories", (Bangazon_ECommerceDbContext db) =>
+{
+    return db.Categories.ToList();
+});
 
+app.MapPut("/order/{Id}", (Bangazon_ECommerceDbContext db, int Id, OrderStatus status) =>
+{
+    Order OrderToUpdate = db.Orders.SingleOrDefault(c => c.Id == Id);
+    if (OrderToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+    OrderToUpdate.status = status;
+    db.SaveChanges();
+    return Results.Ok(OrderToUpdate);
+});
 
 app.Run();
