@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
 using Bangazon_ECommerce_ServerSide;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -156,10 +160,10 @@ app.MapGet("/orders/customer/{customerId}/", (Bangazon_ECommerceDbContext db, in
 app.MapPost("/orders", ( Bangazon_ECommerceDbContext db, Order orders) =>
 {
 
-    Order NewOrder = new Order();
+    Order NewOrder = new Order()
     {
         //How to push a product object into a new Order object.
-    }
+    };
 
 });
 
@@ -199,5 +203,30 @@ app.MapPut("/order/{Id}", (Bangazon_ECommerceDbContext db, int Id, OrderStatus s
     db.SaveChanges();
     return Results.Ok(OrderToUpdate);
 });
+
+//Get a Single Seller
+app.MapGet("/seller/{Id}", (Bangazon_ECommerceDbContext db, int Id) =>
+{
+    return db.Sellers.FirstOrDefault(s => s.Id == Id);
+});
+
+app.MapPut("/orders/update/{OrderId}", (Bangazon_ECommerceDbContext db, int OrderId, Order MyOrder) =>
+{
+
+});
+
+//Add UID from firebase to PSQL: Check User function
+app.MapGet("/checkuser", (Bangazon_ECommerceDbContext db) =>
+{
+    return db.Users.ToList();
+});
+/*
+app.MapPost("/checkuser", (Bangazon_ECommerceDbContext db, Users User) =>
+{
+    Users NewUser = User;
+    db.Users.Add(NewUser);
+    db.SaveChanges();
+    return Results.NoContent();
+});*/
 
 app.Run();

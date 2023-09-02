@@ -15,6 +15,7 @@ namespace Bangazon_ECommerce_ServerSide
 
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Users> Users { get; set; }
 
         public Bangazon_ECommerceDbContext(DbContextOptions<Bangazon_ECommerceDbContext> context) : base(context)
         {
@@ -108,6 +109,10 @@ namespace Bangazon_ECommerce_ServerSide
             {
                 new ProductOrder {Id = 1, OrderId = 1, ProductId = 4,},
                 new ProductOrder {Id = 2, OrderId = 2, ProductId = 2,},
+            });
+            modelBuilder.Entity<Users>().HasData(new Users[]
+            {
+                new Users { Id = 1, uid = "Y5m9isPKZ9Ugs8ptRg9w1rVe6xs1", displayName = "Mark Hallow", email = "mhallow998@gmail.com", photoURL = "https://st4allthings4p4ci.blob.core.windows.net/allthingshair/allthingshair/wp-content/uploads/sites/3/2017/09/professional-mens-hairstyles-combed-back-min.jpg"},
             });
         }
     }
